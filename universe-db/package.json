@@ -1,0 +1,16 @@
+{
+  "name": "universe-db",
+  "version": "1.0.0",
+  "description": "a simple platform for IOT",
+  "main": "index.js",
+  "scripts": {
+    "lint": "standard",
+    "test": ""
+  },
+  "repository": "https://github.com/Rafaell416/universe",
+  "author": "Rafael Villarreal - @Rafaell416 - rvillarreal416@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "standard": "^10.0.3"
+  }
+}
