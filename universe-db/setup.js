@@ -2,8 +2,24 @@
 
 const debug = require('debug')('universe:db:setup')
 const db = require('./')
+const inquirer = require('inquirer')
+const chalk = require('chalk')
+
+const prompt = inquirer.createPromptModule()
 
 async function setup () {
+  const answer = await prompt([
+    {
+      type: 'confirm',
+      name: 'setup',
+      message: 'This will destroy your database, are you really sure???'
+    }
+  ])
+
+  if (!answer.setup) {
+    return console.log('Nothing happend')
+  }
+
   const config = {
     database: process.env.DB_NAME || 'universe',
     username: process.env.DB_USER || 'rafaell416',
@@ -16,12 +32,12 @@ async function setup () {
 
   await db(config).catch(handleFatalError)
 
-  console.log('You hace successfully setup your DB :)')
+  console.log('You have successfully setup your DB :)')
   process.exit(0)
 }
 
 function handleFatalError (err) {
-  console.erro(err.message)
+  console.error(`${chalk.red('[fatal error]')} ${err.message}`)
   console.error(err.stack)
   process.exit(1)
 }
