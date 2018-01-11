@@ -48,21 +48,21 @@ test.beforeEach(async () => {
     hasMany: sandbox.spy()
   }
 
-  //findById stub
+  //  findById stub
   AgentStub.findById = sandbox.stub()
   AgentStub.findById.withArgs(id).returns(Promise.resolve(agentFixtures.findById(id)))
-  //findOne stub
+  //  findOne stub
   AgentStub.findOne = sandbox.stub()
   AgentStub.findOne.withArgs(uuidArgs).returns(Promise.resolve(agentFixtures.byUuid(uuid)))
 
-  //update stub
+  //  update stub
   AgentStub.update = sandbox.stub()
   AgentStub.update.withArgs(single, uuidArgs).returns(Promise.resolve(agentFixtures.single))
 
-  //create stub
+  //  create stub
   AgentStub.create = sandbox.stub()
   AgentStub.create.withArgs(newAgent).returns(Promise.resolve({
-    toJSON () {return newAgent}
+    toJSON () { return newAgent }
   }))
 
   AgentStub.findAll = sandbox.stub()
@@ -70,14 +70,12 @@ test.beforeEach(async () => {
   AgentStub.findAll.withArgs(connectedArgs).returns(Promise.resolve(agentFixtures.connected))
   AgentStub.findAll.withArgs(usernameArgs).returns(Promise.resolve(agentFixtures.universe))
 
-
   const setupDatabase = proxyquire('../', {
     './models/agent': () => AgentStub,
     './models/metric': () => MetricStub
   })
   db = await setupDatabase(config)
 })
-
 
 test.afterEach(() => {
   sandbox && sinon.sandbox.restore()
@@ -144,7 +142,6 @@ test.serial('Agent#findByUsername', async t => {
   t.is(agents.length, agentFixtures.universe.length, 'agents should be the same amount')
   t.deepEqual(agents, agentFixtures.universe, 'agents should be the same')
 })
-
 
 test.serial('Agent#createOrUpdate - exists', async t => {
   let agent = await db.Agent.createOrUpdate(single)
