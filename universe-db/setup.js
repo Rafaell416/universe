@@ -8,16 +8,19 @@ const chalk = require('chalk')
 const prompt = inquirer.createPromptModule()
 
 async function setup () {
-  const answer = await prompt([
-    {
-      type: 'confirm',
-      name: 'setup',
-      message: 'This will destroy your database, are you really sure???'
-    }
-  ])
+  const force = process.argv.slice(2).pop()
+  if (force != '-y') {
+    const answer = await prompt([
+      {
+        type: 'confirm',
+        name: 'setup',
+        message: 'This will destroy your database, are you really sure???'
+      }
+    ])
 
-  if (!answer.setup) {
-    return console.log('Nothing happend')
+    if (!answer.setup) {
+      return console.log('Nothing happend')
+    }
   }
 
   const config = {
