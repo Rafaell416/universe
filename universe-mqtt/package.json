@@ -20,6 +20,7 @@
     "chalk": "^2.3.0",
     "debug": "^3.1.0",
     "mosca": "^2.7.0",
+    "universe-db": "file:../universe-db",
     "redis": "^2.8.0"
   }
 }
