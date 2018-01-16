@@ -4,6 +4,7 @@ const debug = require('debug')('universe:db:setup')
 const db = require('./')
 const inquirer = require('inquirer')
 const chalk = require('chalk')
+const config = require('./config-db')()
 
 const prompt = inquirer.createPromptModule()
 
@@ -21,17 +22,6 @@ async function setup () {
     if (!answer.setup) {
       return console.log('Nothing happend')
     }
-  }
-
-  const config = {
-    database: process.env.DB_NAME || 'universe',
-    username: process.env.DB_USER || 'rafaell416',
-    password: process.env.DB_PASS || 'psqlp4ssw0rd',
-    host: process.env.DB_HOST || 'localhost',
-    dialect: 'postgres',
-    logging: s => debug(s),
-    operatorsAliases: false,
-    setup: true
   }
 
   await db(config).catch(handleFatalError)
